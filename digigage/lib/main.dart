@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'pages/home_page.dart';
+import 'pages/memory_gage.dart';
+import 'pages/result_page.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends 
+class MyApp extends StatelessWidget{
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: 'DIGIMEMORI',
+      initialRoute: '/',
+      routes:{
+        '/':(context) => const HomePage(),
+        '/memory':(context) => const MemoryPage(),
+        '/result':(context) => const ResultPage(),
+      },
+    );
+  }
+}
