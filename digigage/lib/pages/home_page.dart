@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages/home_page.dart';
-import 'pages/memory_gage.dart';
-import 'pages/result_page.dart';
+import 'home_page.dart';
+import 'memory_gage.dart';
+import 'result_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage>{
                                     style: TextStyle(
                                         fontSize: 32,
                                         fontWeight: FontWeight.w800,
-                                        letterSpacing; 1.2,
+                                        letterSpacing: 1.2,
                                     ),
                                 ),
                                 const SizedBox(height: 24),
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage>{
                                     firstChild: FilledButton(
                                         onPressed:() => setState(()=> _menuOpen = true),
                                         child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 28, verical: 14),
+                                            padding: EdgeInsets.symmetric(horizontal: 28, vertical: 14),
                                             child: Text('START', style: TextStyle(fontSize: 18)),      
                                         ),
                                     ),
@@ -68,11 +68,47 @@ class _MenuCard extends StatelessWidget{
     final VoidCallback onClose;
 
     @override
-    Widget Build(BuildContext context){
+    Widget build(BuildContext context){
         return Card(
             elevation: 4,
+            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),
+            child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children:[
+                        const Text('メニュー',style: TextStyle(fontSize: 18, fontWeight:FontWeight.bold)),
+                        const SizedBox(height: 12),
 
-        )
+                        // メモリーページへ遷移するボタン
+                        SizedBox(
+                            width: double.infinity,
+                            child: FilledButton.icon(
+                                onPressed:() => Navigator.pushNamed(context, '/memory'),
+                                icon: const Icon(Icons.sports_martial_arts),
+                                label: const Text('メモリーページへ'),
+                            ),
+                        ),
+                        const SizedBox(height: 8),
 
+                        SizedBox(
+                            width: double.infinity,
+                            child: FilledButton.icon(
+                                onPressed:() => Navigator.pushNamed(context, '/result'),
+                                icon: const Icon(Icons.emoji_events_outlined),
+                                label: const Text('リザルトページへ'),
+                            ),
+                        ),
+                        const SizedBox(height: 8),
+
+                        TextButton.icon(
+                            onPressed: onClose,
+                            icon: const Icon(Icons.close),
+                            label: const Text('閉じる'),
+                        ),
+                    ],
+                ),
+            ),
+        );
     }
 }

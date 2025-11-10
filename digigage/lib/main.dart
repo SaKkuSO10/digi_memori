@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget{
       initialRoute: '/',
       routes:{
         '/':(context) => const HomePage(),
-        '/memory':(context) => const MemoryPage(),
-        '/result':(context) => const ResultPage(),
+        '/memory':(context) => MemoryPage(),
+        '/result':(context) => ResultPage(),
       },
     );
   }
