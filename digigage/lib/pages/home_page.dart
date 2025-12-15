@@ -12,103 +12,85 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>{
-    bool _menuOpen = false;
-    //bool データ型（true/false）　
-    //menuOpenは変数名。＝falseでメニューが閉じている状態と現している
-
-    @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            body: SafeArea(
-                child: Center(
-                    child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:[
-                                const Text(
-                                    'デジメモリー（仮）',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing: 1.2,
-                                    ),
-                                ),
-                                const SizedBox(height: 24),
-                                // 余白を作るためのconst↑
-                                // Startボタン⇆メニューボタンの切り替え
-                                AnimatedCrossFade(
-                                    duration: const Duration(milliseconds:250),
-                                    crossFadeState: _menuOpen
-                                        ? CrossFadeState.showSecond
-                                        : CrossFadeState.showFirst,
-                                    firstChild: FilledButton(
-                                        onPressed:() => setState(()=> _menuOpen = true),
-                                        child: const Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-                                            child: Text('START', style: TextStyle(fontSize: 18)),      
-                                        ),
-                                    ),
-                                    secondChild: _MenuCard(
-                                        onClose: () => setState(()=> _menuOpen = false),
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                ),
-            ),
-        );
-    }
-}
-
-class _MenuCard extends StatelessWidget{
-    const _MenuCard({required this.onClose});
-    final VoidCallback onClose;
-
     @override
     Widget build(BuildContext context){
-        return Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),
-            child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
+        return Scaffold(
+            body: Container(
+                child: Stack(
                     children:[
-                        const Text('メニュー',style: TextStyle(fontSize: 18, fontWeight:FontWeight.bold)),
-                        const SizedBox(height: 12),
-
-                        // メモリーページへ遷移するボタン
-                        SizedBox(
+                        Container(
+                            color: const Color(0xFF0F534D),
                             width: double.infinity,
-                            child: FilledButton.icon(
-                                onPressed:() => Navigator.pushNamed(context, '/memory'),
-                                icon: const Icon(Icons.sports_martial_arts),
-                                label: const Text('メモリーページへ'),
+                            height: double.infinity,
+                        ),
+                        Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                                height: 163,
+                                alignment: Alignment.center,
+                                child: const Text(
+                                    'DigiGage',
+                                    style: TextStyle(
+                                        fontSize:36,
+                                        letterSpacing:5,
+                                        color: const Color(0xFF8BDA9E),
+                                        )
+                                    )
+                                    ),
+                            ),
+                        Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                                height: 100,
                             ),
                         ),
-                        const SizedBox(height: 8),
-
-                        SizedBox(
-                            width: double.infinity,
-                            child: FilledButton.icon(
-                                onPressed:() => Navigator.pushNamed(context, '/result'),
-                                icon: const Icon(Icons.emoji_events_outlined),
-                                label: const Text('リザルトページへ'),
-                            ),
-                        ),
-                        const SizedBox(height: 8),
-
-                        TextButton.icon(
-                            onPressed: onClose,
-                            icon: const Icon(Icons.close),
-                            label: const Text('閉じる'),
-                        ),
+                        Align(
+                            alignment: Alignment.center,
+                            child:Container(
+                                width: double.infinity,
+                                height: 581,
+                                color: Colors.white,
+                                child:Column(
+                                    children:<Widget>[
+                                        Text(
+                                            'スタート',
+                                            style: TextStyle(
+                                                  fontSize:36,
+                                                  color: Colors.black,
+                                                  letterSpacing:5,
+                                                  ),
+                                                  ),
+                                        Text(
+                                            '戦績',
+                                            style: TextStyle(
+                                                  fontSize:36,
+                                                  color: Colors.black,
+                                                  letterSpacing:5,
+                                                  ),
+                                                  ),
+                                        Text(
+                                            '設定',
+                                            style: TextStyle(
+                                                  fontSize:36,
+                                                  color: Colors.black,
+                                                  letterSpacing:5,
+                                                  ),
+                                                  ),
+                                        Text(
+                                            '終了',
+                                            style: TextStyle(
+                                                  fontSize:36,
+                                                  color: Colors.black,
+                                                  letterSpacing:5,
+                                                  ),
+                                                  ),
+                                    ],
+                                ),
+                            )
+                        )
                     ],
-                ),
-            ),
-        );
-    }
+                        ),
+                )
+            );
+            }
 }

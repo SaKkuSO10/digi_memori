@@ -16,22 +16,55 @@ class _MemoryPageState extends State<MemoryPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      Column(
-        children:(
+      body: Column(
+        children:[
           Row(
             children: List.generate(10, (i){
-              final display = 10-i,
-              final value = -(10- i);
-            }
-            }
-
-
-
-
-          Row('0'),
-          Row('Player1'),
+              final display = 10 - i;
+              final value = -(10 - i);
+              return Expanded(
+                child: InkWell(
+                  onTap:() => setState(() => memory == value),
+                  child: Center(
+                  child: Text(
+                    display.toString(),
+                    style:const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                  ),
+                ),
+              ),
+            ),
+          );    
+          },
         ),
-        )
       ),
-  };
+      Row(children:[Text('0')]),
+      Row(
+            children: List.generate(10, (i){
+              final display = 10 - i;
+              final value = -(10 - i);
+              return Expanded(
+                child: InkWell(
+                  onTap:() => setState(() => memory == value),
+                  child: Center(
+                  child: Text(
+                    display.toString(),
+                    style:const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                  ),
+                ),
+              ),
+            ),
+          );    
+          },
+        ),
+      ),
+    ],
+    ),
+  );
+}
 }
