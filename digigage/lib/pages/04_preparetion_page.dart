@@ -19,8 +19,7 @@ class _PreparetionPageState extends State<PreparetionPage>{
     @override
     Widget build(BuildContext context){
         return Scaffold(
-            body: Container(
-                child: Stack(
+            body:Stack(
                     children:[
                         Container(
                             color: const Color(0xFF0F534D),
@@ -38,9 +37,9 @@ class _PreparetionPageState extends State<PreparetionPage>{
                                         fontSize:36,
                                         letterSpacing:5,
                                         color: const Color(0xFF8BDA9E),
-                                        )
-                                    )
+                                        ),
                                     ),
+                                ),
                             ),
                         Align(
                             alignment: Alignment.bottomCenter,
@@ -54,12 +53,37 @@ class _PreparetionPageState extends State<PreparetionPage>{
                                 width: double.infinity,
                                 height: 581,
                                 color: Colors.white,
-                                
+                                child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                        Container(
+                                            width: double.infinity,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        border: Border.all(color: Colors.black),
+                                                        borderRadius: BorderRadius.circular(20.0),),
+                                            child:TextButton(
+                                            onPressed:(){
+                                                    Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(builder:(context) => PreparetionPage2()),
+                                                        );
+                                                },
+                                      child: Text('➕',
+                                      style: TextStyle(
+                                        fontSize:36,
+                                        color: Colors.black,
                                         ),
-                        )
-                                    ],
-                                ),
-                            )
-                        );
-            }
+                                    ),
+                                )),
+                                        const SizedBox(height:80),
+                            ],
+                        ),
+                    ),
+                        ),
+                ],
+            ),
+        );
+    }
 }

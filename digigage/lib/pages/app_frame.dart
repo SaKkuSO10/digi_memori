@@ -13,8 +13,10 @@ class AppFrame extends StatelessWidget{
     super.key,
     required this.body,
     this.title = 'DigiGage',
+    this.topChild,
     this.topHeight = 163,
     this.bottomHeight = 100,
+    this.bottomChild,
     this.cardHeight = 581,
     this.backgroundColor = const Color(0xFF0F534D),
     this.titleColor = const Color(0xFF8BDA9E),
@@ -23,6 +25,8 @@ class AppFrame extends StatelessWidget{
 
   final Widget body;
   final String title;
+  final Widget? topChild;
+  final Widget? bottomChild;
   final double topHeight;
   final double bottomHeight;
   final double cardHeight;
@@ -41,7 +45,7 @@ class AppFrame extends StatelessWidget{
             child: Container(
               height: topHeight,
               alignment: Alignment.center,
-              child: Text(
+              child: topChild ?? Text(
                 title,
                 style: TextStyle(
                   fontSize: 36,
@@ -53,7 +57,10 @@ class AppFrame extends StatelessWidget{
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Container(height: bottomHeight),
+            child: Container(
+              height: bottomHeight,
+              child: bottomChild
+              ),
           ),
           Align(
             alignment: Alignment.center,

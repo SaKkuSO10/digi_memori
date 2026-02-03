@@ -8,6 +8,7 @@ import '06_regist_page.dart';
 import '07_regist_page2.dart';
 import 'app_frame.dart';
 import 'dart:math';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class MemoryPage extends StatefulWidget {
   const MemoryPage({super.key});
@@ -17,15 +18,61 @@ class MemoryPage extends StatefulWidget {
 
 class _MemoryPageState extends State<MemoryPage> {
   int memory = 0;
+  int selectedValue = 0;
+  //最後に選択した値を保持する
+  int turnCount = 1;
+  //ターン数のカウント
+  int minutes = 25;
+  int seconds = 00;
+  late DateTime _endTime; //タイマーの終了時刻を保持
 
 
   static const int maxMem = 10;
   static const int minMem = -10;
 
   @override
+  void initState(){
+    super.initState();
+    _endTime = DateTime.now().add(
+      Duration(minutes: minutes, seconds: seconds),
+    );
+  }
+
+  @override
   Widget build(BuildContext context){
     return AppFrame(
-      title: '',
+          topChild: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0,10,0,0),
+                  child:Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Player2',
+                            style: TextStyle(
+                              fontSize:16,
+                              color: Colors.blue,
+                            )),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                    MaterialPageRoute(builder: (context) => SettingPage()),
+                                );
+                              },
+                child: Text('MENU'),
+                ),],
+        ),),
+          ),
+      bottomChild: SafeArea(
+            child: Align(
+                  alignment: Alignment.bottomRight,
+                  child:
+                  Text('Player1',
+                      style: TextStyle(
+                          fontSize:16,
+                          color: Colors.orange,
+                          )),),
+                ),
       topHeight: 51,
       bottomHeight: 51,
       cardHeight: 288,
@@ -39,41 +86,50 @@ class _MemoryPageState extends State<MemoryPage> {
               final value = -(10 - i);
               return Expanded(
                 child: InkWell(
-                  onTap:() => setState(() => memory == value),
+                  onTap:() => setState(() => selectedValue = value),
                   child: Center(
                     child: Transform.rotate(
                         angle: 360 * pi / 360,
                         alignment: Alignment.center,
-                      child: Text(
-                        display.toString(),
-                        style:const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),),
-                ),
-              ),
+                        child: Container(
+                          width:46,
+                          height:46,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            shape:BoxShape.circle,
+                            color:selectedValue == value ? Colors.grey:Colors.black,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2,
+                              ),
+                            ),     
+                          child: Text(
+                            display.toString(),
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ),
-          );
-          },
-        ),
-      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children:[ElevatedButton(
-                    child: const Text('TURN END'),
-                    onPressed:(){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder:(context) => ResultPage()),
-                        );},
+                    child: Text('ターン： $turnCount'),
+                    onPressed:(){setState(() =>turnCount += 1);},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
                     ),),
-      ElevatedButton(child: const Text('0'),
+      Column(children:[ElevatedButton(child: const Text('0'),
                      style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.yellow,
+                      backgroundColor:selectedValue == 0 ? Colors.grey:Colors.yellow,
                       foregroundColor: Colors.black,
                       shape: const CircleBorder(
                         side: BorderSide(
@@ -82,8 +138,15 @@ class _MemoryPageState extends State<MemoryPage> {
                           style: BorderStyle.solid,
                         ),
                       ),),
-                      onPressed:(){},
+                      onPressed:(){setState(() => selectedValue = 0);},
               ),
+              TimerCountdown(
+                format: CountDownTimerFormat.minutesSeconds,
+                endTime: _endTime,
+        onEnd:(){},
+      ),
+    ],
+  ),
       ElevatedButton(
                     child: const Text('GAME SET'),
                     onPressed:(){
@@ -99,10 +162,10 @@ class _MemoryPageState extends State<MemoryPage> {
       Row(
             children: List.generate(10, (i){
               final display = 10 - i;
-              final value = -(10 - i);
+              final value = (10 - i);
               return Expanded(
                 child: InkWell(
-                  onTap:() => setState(() => memory == value),
+                  onTap:() => setState(() => selectedValue = value),
                   child: Center(
                   child: Container(
                     width: 46,
@@ -110,27 +173,27 @@ class _MemoryPageState extends State<MemoryPage> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
+                      color:selectedValue == value ? Colors.grey:Colors.white,
                       border: Border.all(
                         color: Colors.black,
                         width: 2,),
                     ),
                     child: Text(
                         display.toString(),
-                        style:const TextStyle(
+                        style:TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
-                      ),
+                    ),
                   ),
                 ),
               ),
             );
-            }),
-      ),
-        ],
-      ),
-    );
-  }
+          }),
+        ),
+      ],
+    ),
+  );
+}
 }

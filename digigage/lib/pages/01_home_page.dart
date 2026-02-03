@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                   onPressed:(){
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder:(context) => MemoryPage()),
+                        MaterialPageRoute(builder:(context) => PreparetionPage()),
                     );
                 },
                 child: Text(
@@ -78,9 +78,9 @@ class HomePage extends StatelessWidget {
                                         letterSpacing:5,
                                                   ),
                                                 ),
-                            ),
-                                            ],
-                                        ),
-                                    );
-            }
-        }
+                                            ),
+                                        ],
+                                    ),
+                                );
+                            }
+                        }

@@ -33,7 +33,7 @@ class _PreparetionPage2State extends State<PreparetionPage2>{
                                 height: 163,
                                 alignment: Alignment.center,
                                 child: const Text(
-                                    '対戦準備',
+                                    'ゲーム設定',
                                     style: TextStyle(
                                         fontSize:36,
                                         letterSpacing:5,
@@ -45,7 +45,7 @@ class _PreparetionPage2State extends State<PreparetionPage2>{
                         Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                                height: 100,
+                                height: 50,
                             ),
                         ),
                         Align(
@@ -54,12 +54,32 @@ class _PreparetionPage2State extends State<PreparetionPage2>{
                                 width: double.infinity,
                                 height: 581,
                                 color: Colors.white,
-                                
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:[
+                                        Container(
+                                            width:double.infinity,
+                                            height:50,
+                                            child: Row(children:[
+                                                Text(
+                                                'ゲームモード',
+                                                style: TextStyle(
+                                                fontSize:20,
+                                                letterSpacing:5,
+                                                color:Colors.black)
+                                            ),
+                                            //ドロップダウンのボックスをここに追加する
+                                            ],)
+
+                                        )
+                                    ]
+
+                                )
                                         ),
+                                    ),
+                                ],
+                            ),
                         )
-                                    ],
-                                ),
-                            )
-                        );
+                    );
+                }
             }
-}
