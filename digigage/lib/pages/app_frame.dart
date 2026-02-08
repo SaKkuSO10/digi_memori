@@ -13,18 +13,22 @@ class AppFrame extends StatelessWidget{
     super.key,
     required this.body,
     this.title = 'DigiGage',
+    this.bottomTitle = 'TOPページ',
     this.topChild,
     this.topHeight = 163,
-    this.bottomHeight = 100,
+    this.bottomHeight = 50,
     this.bottomChild,
     this.cardHeight = 581,
     this.backgroundColor = const Color(0xFF0F534D),
     this.titleColor = const Color(0xFF8BDA9E),
+    this.bottomTitleColor = const Color(0xFF000000),
+    this.showTopButton =true,
   });
   //↑定義を書いている
 
   final Widget body;
   final String title;
+  final String bottomTitle;
   final Widget? topChild;
   final Widget? bottomChild;
   final double topHeight;
@@ -32,6 +36,8 @@ class AppFrame extends StatelessWidget{
   final double cardHeight;
   final Color backgroundColor;
   final Color titleColor;
+  final Color bottomTitleColor;
+  final bool showTopButton;
   //↑受け取った値を入れておく箱を定義している
 
   @override
@@ -55,13 +61,33 @@ class AppFrame extends StatelessWidget{
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: bottomHeight,
-              child: bottomChild
-              ),
-          ),
+          if (showTopButton)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SafeArea(
+                child: Container(
+                  height: bottomHeight,
+                  width: 200,
+                    decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black,),),
+                child: TextButton(
+                        onPressed:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder:(context) => HomePage()),
+                          );},
+                        child: bottomChild ?? Text(
+                              bottomTitle,
+                              style: TextStyle(
+                                  fontSize:20,
+                                  letterSpacing:5,
+                                  color: bottomTitleColor,),
+                            ),
+                        ),
+                      ),
+                    ),
+                  ),
           Align(
             alignment: Alignment.center,
             child: Container(
@@ -76,4 +102,3 @@ class AppFrame extends StatelessWidget{
       );
     }
   }
-   

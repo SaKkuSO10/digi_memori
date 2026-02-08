@@ -7,6 +7,7 @@ import '05_preparetion_page2.dart';
 import '06_regist_page.dart';
 import '07_regist_page2.dart';
 import 'memory_gage.dart';
+import 'app_frame.dart';
 
 class PreparetionPage extends StatefulWidget {
     const PreparetionPage({super.key});
@@ -18,7 +19,7 @@ class PreparetionPage extends StatefulWidget {
 class _PreparetionPageState extends State<PreparetionPage>{
     @override
     Widget build(BuildContext context){
-        return Scaffold(
+        return AppFrame(
             body:Stack(
                     children:[
                         Container(

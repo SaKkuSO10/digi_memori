@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
     @override
     Widget build(BuildContext context){
         return AppFrame(
+            showTopButton: false,
             body:Column(
              children:<Widget>[
                 SizedBox(height:80),
