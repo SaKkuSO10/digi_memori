@@ -33,7 +33,7 @@ class _SettingPageState extends State<SettingPage>{
                                 height: 163,
                                 alignment: Alignment.center,
                                 child: const Text(
-                                    '設定',
+                                    '準備',
                                     style: TextStyle(
                                         fontSize:36,
                                         letterSpacing:5,
@@ -54,12 +54,31 @@ class _SettingPageState extends State<SettingPage>{
                                 width: double.infinity,
                                 height: 581,
                                 color: Colors.white,
-                                
+                                child: Column(
+                                    children:<Widget>[
+                                        SizedBox(height:80),
+
+                                            TextButton(
+                                                onPressed:(){
+                                                Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(builder:(context) => MemoryPage(initialMinutes: selectedMinutes)),
+                                                        );
+                                                },
+                                            child: Text('ゲーム開始',
+                                                style: TextStyle(
+                                                fontSize:36,
+                                                color: Colors.black,
+                                                letterSpacing:5,
+                                                ),
+                                            ),
+                                        ),]
                                         ),
-                        )
-                                    ],
+                                    ),
                                 ),
-                            )
-                        );
+                            ],
+                        ),
+                    )
+                );
             }
 }
