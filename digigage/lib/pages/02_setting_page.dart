@@ -16,6 +16,11 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage>{
+
+    int? isSelectedItem;
+
+
+
     @override
     Widget build(BuildContext context){
         return Scaffold(
@@ -56,13 +61,31 @@ class _SettingPageState extends State<SettingPage>{
                                 color: Colors.white,
                                 child: Column(
                                     children:<Widget>[
+                                        //ここに制限時間を選択させるUIを実装する
+                                        DropdownButton(
+                                            items: const[
+                                                DropdownMenuItem(
+                                                child:Text('25分'),
+                                                value:25,
+                                            ),
+                                                DropdownMenuItem(
+                                                child:Text('30分'),
+                                                value:30,
+                                            ),],
+                                            onChanged:(int? value){
+                                                setState((){
+                                                    isSelectedItem =value;
+                                                });
+                                            },
+                                            value: isSelectedItem,
+                                        ),
                                         SizedBox(height:80),
 
                                             TextButton(
                                                 onPressed:(){
-                                                Navigator.push(
+                                                Navigator.pop(
                                                             context,
-                                                            MaterialPageRoute(builder:(context) => MemoryPage(initialMinutes: selectedMinutes)),
+                                                            MaterialPageRoute(builder:(context) => MemoryPage(isSelectedItem: isSelectedItem,)),
                                                         );
                                                 },
                                             child: Text('ゲーム開始',

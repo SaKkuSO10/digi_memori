@@ -11,7 +11,8 @@ import 'dart:math';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class MemoryPage extends StatefulWidget {
-  const MemoryPage({super.key});
+  const MemoryPage({this.isSelectedItem =25});
+  final int? isSelectedItem;
   @override
   State<MemoryPage> createState() => _MemoryPageState();
 }

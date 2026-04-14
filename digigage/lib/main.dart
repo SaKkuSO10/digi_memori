@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget{
       initialRoute: '/',
       routes:{
         '/':(context) => const HomePage(),
-        '/memory':(context) => MemoryPage(),
+        '/memory':(context) => MemoryPage(isSelectedItem: 25),
         '/result':(context) => ResultPage(),
       },
     );
