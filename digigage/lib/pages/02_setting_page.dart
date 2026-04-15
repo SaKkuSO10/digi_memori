@@ -83,7 +83,7 @@ class _SettingPageState extends State<SettingPage>{
 
                                             TextButton(
                                                 onPressed:(){
-                                                Navigator.pop(
+                                                Navigator.push(
                                                             context,
                                                             MaterialPageRoute(builder:(context) => MemoryPage(isSelectedItem: isSelectedItem,)),
                                                         );

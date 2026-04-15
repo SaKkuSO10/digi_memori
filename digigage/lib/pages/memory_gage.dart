@@ -8,7 +8,10 @@ import '06_regist_page.dart';
 import '07_regist_page2.dart';
 import 'app_frame.dart';
 import 'dart:math';
-import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
+
+
+
 
 class MemoryPage extends StatefulWidget {
   const MemoryPage({this.isSelectedItem =25});
@@ -18,14 +21,18 @@ class MemoryPage extends StatefulWidget {
 }
 
 class _MemoryPageState extends State<MemoryPage> {
+
+  //タイマーのインスタンスの作成
+  final _stopWatchTimer = StopWatchTimer(
+    mode: StopWatchMode.countDown,
+    presetMillisecond: 0,
+  );
+
   int memory = 0;
   int selectedValue = 0;
   //最後に選択した値を保持する
   int turnCount = 1;
   //ターン数のカウント
-  int minutes = 25;
-  int seconds = 00;
-  late DateTime _endTime; //タイマーの終了時刻を保持
 
 
   static const int maxMem = 10;
@@ -34,10 +41,16 @@ class _MemoryPageState extends State<MemoryPage> {
   @override
   void initState(){
     super.initState();
-    _endTime = DateTime.now().add(
-      Duration(minutes: minutes, seconds: seconds),
-    );
+    final int timeInMs = widget.isSelectedItem * 1000 * 60,
+    _stopWatchTimer.setPresetTime(mSec: timeInMs);
   }
+
+  @override
+  void dispose(){
+    _stopWatchTimer.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context){
@@ -141,13 +154,25 @@ class _MemoryPageState extends State<MemoryPage> {
                       ),),
                       onPressed:(){setState(() => selectedValue = 0);},
               ),
-              TimerCountdown(
-                format: CountDownTimerFormat.minutesSeconds,
-                endTime: _endTime,
-        onEnd:(){},
-      ),
-    ],
-  ),
+              StreamBuilder(
+                stream: _stopWatchTimer.setPresetTime,
+                initialData: _StopWatchTimer.setPresetTime.value,
+                builder:(context, snapshot){
+                  final displayTime = StopWatchTimer.getDisplayTime(
+                    snapshot.data!,
+                    );
+                    return Center(
+                      child: SizedBox(
+                        width:144,
+                        child: Text(
+                          displayTime,
+                          style: const TextStyle(fontSize:24)
+                        )
+                      )
+                    )
+
+                  )
+                },}
       ElevatedButton(
                     child: const Text('GAME SET'),
                     onPressed:(){
